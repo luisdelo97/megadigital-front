@@ -12,12 +12,12 @@ const Formulario = () => {
 
   const [fechaentrada, setFechaentrada] = useState("");
   const [fechasalida, setFechasalida] = useState("");
-
   const [reservaId, setReservaId] = useState(null);
+
   const [alerta, setAlerta] = useState({});
 
   const { editarReserva, guardarReserva } = useContext(ReservaContext);
-
+  // console.log(import.meta.env.VITE_BACKEND_URL);
   useEffect(() => {
     if (editarReserva?.id) {
       setHabitacionpiso(editarReserva.habitacionpiso);

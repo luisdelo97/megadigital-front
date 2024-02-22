@@ -48,7 +48,7 @@ const Registrar = () => {
   return (
     <>
       <div className="min-w-full bg-slate-700">
-        <div className="container mx-auto">
+        <div className="mx-10">
           <div>
             <h1 className="text-white font-black text-5xl ">
               Registrate

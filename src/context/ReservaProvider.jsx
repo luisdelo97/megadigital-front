@@ -16,7 +16,8 @@ const ReservaProvider = ({ children }) => {
         );
         setReservas(reservasObtenidas.data);
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data.msg);
+        setReservas([]);
       }
     };
     obtenerReservas();

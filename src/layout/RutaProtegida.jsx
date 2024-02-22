@@ -1,25 +1,23 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { Outlet, Navigate } from "react-router-dom";
-
-// import { useState } from "react";
+import AuthContext from "../context/AuthProvider";
 
 const RutaProtegida = () => {
-  // const { auth, setAuth } = useState({ _id: 1 });
+  const { cargando, auth } = useContext(AuthContext);
 
-  // if (cargando) return "cargando...";
+  if (cargando) {
+    return <>Cargando...</>;
+  }
 
   return (
     <>
-      <main className="container mx-auto mt-10">
-        <Outlet />
-      </main>
-      {/* {auth?._id ? (
+      {auth?.id ? (
         <main className="container mx-auto mt-10">
           <Outlet />
         </main>
       ) : (
         <Navigate to="/" />
-      )} */}
+      )}
     </>
   );
 };
