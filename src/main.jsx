@@ -8,7 +8,6 @@ import RutaProtegida from "./layout/RutaProtegida.jsx";
 import Home from "./pages/Home.jsx";
 import { ReservaProvider } from "./context/ReservaProvider.jsx";
 import { AuthProvider } from "./context/AuthProvider.jsx";
-// import Registrar from "./pages/Registrar.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
