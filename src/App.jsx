@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Alerta from "./components/Alerta";
 import clienteAxios from "./axios/clientAxios";
 import AuthContext from "./context/AuthProvider";
+import Spinner from "./components/Spinner";
 
 function App() {
   const [nroDocumento, setNroDocumento] = useState("");
@@ -10,19 +11,20 @@ function App() {
 
   const navigate = useNavigate();
 
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth, cargando, setCargando } = useContext(AuthContext);
 
   const manejarAutenticacion = async (e) => {
     e.preventDefault(); // Prevenir la recarga de la página
 
     try {
-      console.log("autenticando...");
+      setCargando(true);
       const { data } = await clienteAxios.post("/", {
         nrodocumento: nroDocumento,
       });
 
       // Redirigir al usuario a la URL indicada por el servidor
       localStorage.setItem("personaId", data.personaId);
+      setCargando(false);
       setAuth({ id: data.personaId });
       navigate(data.redirectUrl);
     } catch (error) {
@@ -32,6 +34,7 @@ function App() {
         setAlerta({});
       }, 2000);
     }
+    setCargando(false);
   };
   const { msg } = alerta;
   return (
@@ -39,6 +42,7 @@ function App() {
       onSubmit={manejarAutenticacion}
       className="flex flex-col justify-center gap-4 items-center bg-slate-800 text-white h-lvh"
     >
+      {cargando && <Spinner />}
       {msg && <Alerta alerta={alerta}></Alerta>}
       <label htmlFor="nroDocumento">Número de Documento:</label>
       <input

@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import AuthContext from "../context/AuthProvider";
+import Spinner from "../components/Spinner";
 
 const RutaProtegida = () => {
   const { cargando, auth } = useContext(AuthContext);
 
   if (cargando) {
-    return <>Cargando...</>;
+    return <Spinner />;
   }
 
   return (
