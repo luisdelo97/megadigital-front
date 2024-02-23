@@ -17,7 +17,6 @@ const Formulario = () => {
   const [alerta, setAlerta] = useState({});
 
   const { editarReserva, guardarReserva } = useContext(ReservaContext);
-  // console.log(import.meta.env.VITE_BACKEND_URL);
   useEffect(() => {
     if (editarReserva?.id) {
       setHabitacionpiso(editarReserva.habitacionpiso);

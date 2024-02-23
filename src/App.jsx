@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Alerta from "./components/Alerta";
 import clienteAxios from "./axios/clientAxios";
+import AuthContext from "./context/AuthProvider";
 
 function App() {
   const [nroDocumento, setNroDocumento] = useState("");
@@ -9,22 +10,24 @@ function App() {
 
   const navigate = useNavigate();
 
+  const { setAuth } = useContext(AuthContext);
+
   const manejarAutenticacion = async (e) => {
     e.preventDefault(); // Prevenir la recarga de la página
 
     try {
-      const respuesta = await clienteAxios.post("/", {
+      const { data, statusText } = await clienteAxios.post("/", {
         nrodocumento: nroDocumento,
       });
 
-      const datos = respuesta.data;
-      if (respuesta.statusText !== "OK") {
-        throw new Error(datos.msg || "Error en la autenticación");
+      if (statusText !== "OK") {
+        throw new Error(data.msg || "Error en la autenticación");
       }
 
       // Redirigir al usuario a la URL indicada por el servidor
-      localStorage.setItem("personaId", datos.personaId);
-      navigate(datos.redirectUrl);
+      localStorage.setItem("personaId", data.personaId);
+      setAuth({ id: data.personaId });
+      navigate(data.redirectUrl);
     } catch (error) {
       console.log("Error:", error.message);
       setAlerta({ msg: error.response.data.msg, error: true });
