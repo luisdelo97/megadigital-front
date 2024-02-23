@@ -11,6 +11,8 @@ const ReservaProvider = ({ children }) => {
     const obtenerReservas = async () => {
       try {
         const personaId = localStorage.getItem("personaId");
+        if (!personaId) return;
+
         const reservasObtenidas = await clienteAxios.get(
           `/home/reserva?personaId=${personaId}`
         );
