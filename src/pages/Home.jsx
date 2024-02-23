@@ -16,10 +16,10 @@ const Home = () => {
           Cerrar Sesion
         </button>
       </div>
-      <div className={`mt-8 md:block md:w-1/2 lg:w-2/5`}>
+      <div className={`mt-10 md:block md:w-1/2 lg:w-2/5`}>
         <Formulario />
       </div>
-      <div className="md:w-1/2 lg:h-3/5">
+      <div className=" mt-8 md:w-1/2 lg:h-3/5">
         <Reserva />
       </div>
     </div>

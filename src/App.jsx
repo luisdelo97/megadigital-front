@@ -16,13 +16,10 @@ function App() {
     e.preventDefault(); // Prevenir la recarga de la página
 
     try {
-      const { data, statusText } = await clienteAxios.post("/", {
+      console.log("autenticando...");
+      const { data } = await clienteAxios.post("/", {
         nrodocumento: nroDocumento,
       });
-
-      if (statusText !== "OK") {
-        throw new Error(data.msg || "Error en la autenticación");
-      }
 
       // Redirigir al usuario a la URL indicada por el servidor
       localStorage.setItem("personaId", data.personaId);

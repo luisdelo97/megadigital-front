@@ -8,7 +8,7 @@ const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
 
   useEffect(() => {
-    const autenticarUruario = async () => {
+    const autenticarPersona = async () => {
       const personaId = localStorage.getItem("personaId");
       if (!personaId) {
         setCargando(false);
@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
       }
       setCargando(false);
     };
-    autenticarUruario();
+    autenticarPersona();
   }, []);
 
   const cerrarSesion = () => {

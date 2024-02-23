@@ -79,9 +79,7 @@ const Formulario = () => {
   const { msg } = alerta;
   return (
     <>
-      <h2 className="font-black mt-2 text-3xl text-center">
-        Reserva de hospedaje
-      </h2>
+      <h2 className="font-black text-3xl text-center">Reserva de hospedaje</h2>
       <p className="text-xl mt-5 text-center mb-10">
         Realizalo
         <span className="text-indigo-600 font-bold"> aqui abajo!</span>
