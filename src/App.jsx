@@ -7,34 +7,35 @@ import Spinner from "./components/Spinner";
 
 function App() {
   const [nroDocumento, setNroDocumento] = useState("");
+  const [spinner, setSpinner] = useState(false);
   const [alerta, setAlerta] = useState({});
 
   const navigate = useNavigate();
 
-  const { setAuth, cargando, setCargando } = useContext(AuthContext);
+  const { setAuth } = useContext(AuthContext);
 
   const manejarAutenticacion = async (e) => {
     e.preventDefault(); // Prevenir la recarga de la página
 
     try {
-      setCargando(true);
+      setSpinner(true);
       const { data } = await clienteAxios.post("/", {
         nrodocumento: nroDocumento,
       });
-
       // Redirigir al usuario a la URL indicada por el servidor
       localStorage.setItem("personaId", data.personaId);
-      setCargando(false);
+      setSpinner(false);
       setAuth({ id: data.personaId });
       navigate(data.redirectUrl);
     } catch (error) {
       console.log("Error:", error.message);
-      setAlerta({ msg: error.response.data.msg, error: true });
+      const errorMsg = error?.response?.data?.msg ?? "Error de conexion";
+      setAlerta({ msg: errorMsg, error: true });
       setTimeout(() => {
         setAlerta({});
       }, 2000);
+      setSpinner(false);
     }
-    setCargando(false);
   };
   const { msg } = alerta;
   return (
@@ -42,7 +43,7 @@ function App() {
       onSubmit={manejarAutenticacion}
       className="flex flex-col justify-center gap-4 items-center bg-slate-800 text-white h-lvh"
     >
-      {cargando && <Spinner />}
+      {spinner && <Spinner />}
       {msg && <Alerta alerta={alerta}></Alerta>}
       <label htmlFor="nroDocumento">Número de Documento:</label>
       <input
